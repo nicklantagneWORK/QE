@@ -1,0 +1,18 @@
+{
+  "install": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$ErrorActionPreference = 'Stop'; if (Test-Path package.json) { npm install }; if (Get-ChildItem -Recurse -Filter *.sln | Select-Object -First 1) { dotnet restore }; dotnet --info\"",
+  "start": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Write-Host 'Environment ready'\"",
+  "terminals": [
+    {
+      "name": "Dev Server",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (Test-Path package.json) { npm run dev }\""
+    },
+    {
+      "name": "Watch Tests",
+      "command": "dotnet watch test"
+    }
+  ],
+  "build": {
+    "dockerfile": ".cursor/Dockerfile",
+    "context": "."
+  }
+}
